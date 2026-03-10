@@ -1,68 +1,94 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI大模型开发 | 个人简历</title>
-    <style>
+<超文本标记语言 语言=“zh-CN”>
+<头>
+    <自指的 字符集=“UTF八号”>
+    <自指的 名字="视窗" 内容=宽度=设备宽度，初始比例=1.0>
+    <标题>人工智能大模型开发|个人简历</标题>
+    <风格>
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            边缘: 0;
+            填料: 0;
+            盒子尺寸: 边框;
+            字体系列: ' Segoe UI ', 机器人, 无衬线字体;
         }
         /* 科技感渐变背景 */
-        body {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
-            color: #333;
-            line-height: 1.6;
-            min-height: 100vh;
-            padding: 20px 0;
+        身体 {
+            背景: 线性梯度(135（同degree）度，#0f172a0%，#1e293b50%, #334155 100%);
+            颜色: #333;
+            行高: 1.6;
+            最小高度: 100vh;
+            填料: 20像素 0;
         }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .容器 {
+            最大宽度: 900像素;
+            边缘: 0 汽车;
+            填料: 0 20像素;
         }
-        /* 卡片添加玻璃质感和AI主题装饰 */
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            position: relative;
-            overflow: hidden;
+        /* 卡片添加玻璃质感和人工智能主题装饰 */
+        .卡片 {
+            背景: rgba(255, 255, 255, 0.95);
+            边框半径: 20像素;
+            填料: 40像素;
+            箱形阴影: 0 8像素 32像素 rgba(0, 0, 0, 0.15);
+            背景滤镜: 虚化(10像素);
+            边界: 1像素 固体 rgba(255, 255, 255, 0.18);
+            位置: 亲戚;
+            泛滥: 隐藏的;
         }
         /* AI主题装饰元素 */
-        .card::before {
-            content: "";
-            position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 200px;
-            height: 200px;
-            background: linear-gradient(45deg, #7c3aed, #3b82f6);
-            border-radius: 50%;
-            opacity: 0.1;
-            z-index: 0;
+        .卡片::以前 {
+            内容: "";
+            位置: 绝对的;
+            顶端: -50像素;
+            正确: -50像素;
+            宽度: 200像素;
+            高度: 200像素;
+            背景: 线性梯度(45（同degree）度，#7c3aed，#3b82f6);
+            边框半径: 50%;
+            不透明: 0.1;
+            z指数: 0;
         }
-        .card::after {
-            content: "AI";
-            position: absolute;
-            bottom: -30px;
-            left: -30px;
-            font-size: 180px;
-            font-weight: 800;
-            color: rgba(124, 58, 237, 0.05);
-            z-index: 0;
+        .卡片::在...之后 {
+            内容: “艾”;
+            位置: 绝对的;
+            底部: -30像素;
+            左边的: -30像素;
+            字体大小: 180像素;
+            字体粗细: 800;
+            颜色: rgba(124, 58, 237, 0.05);
+            z指数: 0;
         }
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
+        .页眉 {
+            文本对齐: 中心;
+            页边距-底部: 30像素;
             position: relative;
             z-index: 1;
+        }
+        /* 新增：个人头像样式 */
+        .avatar {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 16px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid rgba(124, 58, 237, 0.2);
+            transition: all 0.3s ease;
+        }
+        .avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 16px rgba(124, 58, 237, 0.3);
+        }
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        /* 适配手机端头像大小 */
+        @media (max-width: 600px) {
+            .avatar {
+                width: 80px;
+                height: 80px;
+            }
         }
         .header h1 {
             font-size: 36px;
@@ -186,6 +212,10 @@
     <div class="container">
         <div class="card">
             <div class="header">
+                <!-- 新增：个人头像代码 -->
+                <div class="avatar">
+                    <img src="avatar.jpg" alt="李卓豪的个人照片">
+                </差异>
                 <h1>李卓豪</h1>
                 <div class="title">求职意向：AI大模型应用开发 / 大模型微调 / 智能应用开发/数据工程师</div>
                 <div class="contact">
@@ -256,4 +286,5 @@
         </div>
     </div>
 </body>
+
 </html>
