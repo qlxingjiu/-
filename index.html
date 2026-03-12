@@ -12,14 +12,14 @@
             font-family: "Microsoft YaHei", Arial, sans-serif;
         }
         :root {
-            --primary: #ff00ff; /* 品红/洋红 - 代码高亮主色 */
-            --secondary: #00ffff; /* 青色 - 代码高亮辅助色 */
-            --tertiary: #00ff00; /* 绿色 - 代码高亮点缀色 */
-            --light: #1a1a1a;    /* 浅黑背景 */
-            --dark: #f0f0f0;     /* 浅文字色 */
-            --gray: #888888;     /* 灰色文字 */
-            --border: #333333;   /* 边框色 */
-            --bg-main: #000000;  /* 纯黑背景 - 代码风格 */
+            --primary: #165DFF; /* 主色：蓝色 */
+            --secondary: #0E42B3; /* 辅助色：深蓝 */
+            --tertiary: #36CFC9; /* 点缀色：青蓝 */
+            --light: #f5f5f5;    /* 浅灰背景 */
+            --dark: #333333;     /* 深文字色 */
+            --gray: #666666;     /* 灰色文字 */
+            --border: #e0e0e0;   /* 边框色 */
+            --bg-main: #ffffff;  /* 白色背景 */
             --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         body {
@@ -99,8 +99,8 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: rgba(255, 0, 255, 0.1);
-            border: 1px solid rgba(255, 0, 255, 0.2);
+            background: rgba(22, 93, 255, 0.1);
+            border: 1px solid rgba(22, 93, 255, 0.2);
             transition: var(--transition);
             cursor: pointer;
         }
@@ -115,10 +115,10 @@
             visibility: hidden;
             min-width: 120px;
             padding: 6px 12px;
-            background: rgba(30, 30, 30, 0.95);
+            background: rgba(245, 245, 245, 0.95);
             border: 1px solid var(--primary);
             border-radius: 6px;
-            color: #fff;
+            color: #333;
             font-size: 14px;
             white-space: nowrap;
             transform: translateY(10px);
@@ -137,9 +137,9 @@
             border-color: var(--primary) transparent transparent transparent;
         }
         .contact-item:hover {
-            background: rgba(255, 0, 255, 0.2);
+            background: rgba(22, 93, 255, 0.2);
             transform: translateY(-3px);
-            box-shadow: 0 4px 8px rgba(255,0,255,0.2);
+            box-shadow: 0 4px 8px rgba(22,93,255,0.2);
         }
         .contact-item:hover .contact-text {
             opacity: 1;
@@ -157,7 +157,7 @@
             right: 0;
             height: 100vh;
             width: 200px;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(8px);
             z-index: 100;
             display: flex;
@@ -171,7 +171,7 @@
         }
         .nav:hover {
             transform: translateX(0);
-            background: rgba(0, 0, 0, 0.98);
+            background: rgba(255, 255, 255, 0.98);
             cursor: default;
         }
         .nav::before {
@@ -249,11 +249,11 @@
             padding: 6px 18px;
             height: 36px;
             background: var(--primary);
-            color: #000 !important;
+            color: #fff !important;
             border-radius: 6px;
             font-size: 16px;
             font-weight: 500;
-            box-shadow: 0 2px 8px rgba(255,0,255,0.3);
+            box-shadow: 0 2px 8px rgba(22,93,255,0.3);
             transition: var(--transition);
             white-space: nowrap;
             border: none;
@@ -263,7 +263,7 @@
         .resume-download:hover {
             background: var(--secondary);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,255,255,0.4);
+            box-shadow: 0 4px 12px rgba(14,66,179,0.4);
         }
         .resume-download i {
             margin-right: 8px;
@@ -287,7 +287,7 @@
             left: 50%;
             transform: translateX(-50%);
             border-radius: 2px;
-            box-shadow: 0 0 8px rgba(255,0,255,0.3);
+            box-shadow: 0 0 8px rgba(22,93,255,0.3);
         }
         /* 技术领域 */
         .tech-list {
@@ -302,14 +302,14 @@
             padding: 30px 20px;
             border-radius: 8px;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             transition: var(--transition);
             border: 1px solid var(--border);
         }
         .tech-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(255,0,255,0.1);
-            border-color: rgba(255, 0, 255, 0.2);
+            box-shadow: 0 5px 15px rgba(22,93,255,0.1);
+            border-color: rgba(22, 93, 255, 0.2);
         }
         .tech-item i {
             font-size: 32px;
@@ -347,8 +347,8 @@
             background: var(--light);
         }
         .project-item:hover {
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-            border-color: rgba(255, 0, 255, 0.2);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-color: rgba(22, 93, 255, 0.2);
             transform: translateY(-3px);
         }
         .project-item .project-header {
@@ -400,13 +400,13 @@
             background: var(--light);
             padding: 40px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             border: 1px solid var(--border);
             transition: var(--transition);
         }
         .idea-content:hover {
-            border-color: rgba(255, 0, 255, 0.2);
-            box-shadow: 0 5px 15px rgba(255,0,255,0.1);
+            border-color: rgba(22, 93, 255, 0.2);
+            box-shadow: 0 5px 15px rgba(22,93,255,0.1);
         }
         .idea-content p {
             font-size: 16px;
@@ -422,19 +422,19 @@
             padding: 8px 24px;
             height: 40px;
             background: var(--primary);
-            color: #000;
+            color: #fff;
             border-radius: 6px;
             font-size: 16px;
             margin: 20px 10px;
             border: none;
             cursor: pointer;
             transition: var(--transition);
-            box-shadow: 0 2px 8px rgba(255,0,255,0.3);
+            box-shadow: 0 2px 8px rgba(22,93,255,0.3);
         }
         .contact-btn:hover {
             background: var(--secondary);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,255,255,0.4);
+            box-shadow: 0 4px 12px rgba(14,66,179,0.4);
         }
         .contact-btn i {
             margin-right: 8px;
@@ -469,8 +469,8 @@
         .pagination-dot.active {
             background: var(--primary);
             transform: scale(1.2);
-            border-color: rgba(255, 0, 255, 0.5);
-            box-shadow: 0 0 8px rgba(255, 0, 255, 0.6);
+            border-color: rgba(22, 93, 255, 0.5);
+            box-shadow: 0 0 8px rgba(22,93,255,0.6);
         }
         /* 翻页提示 */
         .scroll-tip {
@@ -494,8 +494,8 @@
             bottom: 50px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(255, 0, 255, 0.9);
-            color: #000;
+            background: rgba(22, 93, 255, 0.9);
+            color: #fff;
             padding: 8px 20px;
             border-radius: 4px;
             font-size: 14px;
@@ -611,7 +611,7 @@
             <div class="page page-1" id="page1">
                 <div class="container">
                     <div class="avatar">
-                        <img src="lzh.png" alt="李卓豪个人照片" style="width: 120px; height: 120px; border-radius: 50%; border: 4px solid rgba(255, 0, 255, 0.1); box-shadow: 0 0 20px rgba(255, 0, 255, 0.15);">
+                        <img src="https://via.placeholder.com/120" alt="李卓豪个人照片" style="width: 120px; height: 120px; border-radius: 50%; border: 4px solid rgba(22, 93, 255, 0.1); box-shadow: 0 0 20px rgba(22, 93, 255, 0.15);">
                     </div>
                     <h1>李卓豪</h1>
                     <p class="title">AI大模型应用开发 | 大模型微调 | 智能应用落地</p>
@@ -635,7 +635,7 @@
                         </div>
                         <div class="contact-item">
                             <i class="fab fa-github"></i>
-                            <span class="contact-text"><a href="https://github.com/qlxingjiu" target="_blank" style="color: #fff;">GitHub/qlxingjiu</a></span>
+                            <span class="contact-text"><a href="https://github.com/qlxingjiu" target="_blank" style="color: #333;">GitHub/qlxingjiu</a></span>
                         </div>
                     </div>
                     <a href="简历_数据工程师.docx" download="简历_数据工程师.docx" class="resume-download">
@@ -835,4 +835,3 @@
     </script>
 </body>
 </html>
-
