@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>张子墨 - AI大模型应用开发工程师</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+        }
+        :root {
+            --primary: #165DFF; /* 主色：蓝色 */
+            --secondary: #0E42B3; /* 辅助色：深蓝 */
+            --tertiary: #36CFC9; /* 点缀色：青蓝 */
+            --light: #f5f5f5;    /* 浅灰背景 */
+            --dark: #333333;     /* 深文字色 */
+            --gray: #666666;     /* 灰色文字 */
+            --border: #e0e0e0;   /* 边框色 */
+            --bg-main: #ffffff;  /* 白色背景 */
+            --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        body {
+            color: var(--dark);
+            background: var(--bg-main);
+            line-height: 1.6;
+            overflow: hidden;
+        }
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+        a:hover {
+            color: var(--secondary);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* 核心布局 */
+        .page-container {
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        .pages {
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateY(0);
+        }
+        .page {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 100px 0 40px;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-main);
+        }
+        /* 第一页 */
+        .page-1 {
+            text-align: center;
+        }
+        .page-1 .title {
+            font-size: 18px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        .page-1 h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+        .page-1 .desc {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            font-size: 16px;
+            color: var(--gray);
+        }
+        /* 联系方式 */
+        .page-1 .contact {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .contact-item {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(22, 93, 255, 0.1);
+            border: 1px solid rgba(22, 93, 255, 0.2);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .contact-item i {
+            font-size: 18px;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+        .contact-item .contact-text {
+            position: absolute;
+            opacity: 0;
+            visibility: hidden;
+            min-width: 120px;
+            padding: 6px 12px;
+            background: rgba(245, 245, 245, 0.95);
+            border: 1px solid var(--primary);
+            border-radius: 6px;
+            color: #333;
+            font-size: 14px;
+            white-space: nowrap;
+            transform: translateY(10px);
+            transition: var(--transition);
+            z-index: 10;
+            top: -50px;
+        }
+        .contact-item .contact-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px;
+            border-style: solid;
+            border-color: var(--primary) transparent transparent transparent;
+        }
+        .contact-item:hover {
+            background: rgba(22, 93, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(22,93,255,0.2);
+        }
+        .contact-item:hover .contact-text {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .contact-item:hover i {
+            color: var(--secondary);
+            transform: scale(1.1);
+        }
+        /* 导航栏 */
+        .nav {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100vh;
+            width: 200px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transform: translateX(calc(100% - 20px));
+            transition: var(--transition);
+            cursor: pointer;
+            border-left: 1px solid var(--border);
+        }
+        .nav:hover {
+            transform: translateX(0);
+            background: rgba(255, 255, 255, 0.98);
+            cursor: default;
+        }
+        .nav::before {
+            content: "☰";
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: var(--primary);
+            transition: var(--transition);
+            z-index: 101;
+        }
+        .nav:hover::before {
+            opacity: 0;
+        }
+        .nav .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            gap: 20px;
+            overflow: hidden;
+        }
+        .nav .name {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            opacity: 0;
+            transition: opacity 0.3s 0.1s;
+        }
+        .nav:hover .name {
+            opacity: 1;
+        }
+        .nav .tags {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s 0.15s;
+        }
+        .nav:hover .tags {
+            opacity: 1;
+        }
+        .nav .tags a {
+            font-size: 16px;
+            color: var(--gray);
+            line-height: 36px;
+            position: relative;
+        }
+        .nav .tags a::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+        .nav .tags a:hover {
+            color: var(--primary);
+        }
+        .nav .tags a:hover::after {
+            width: 100%;
+        }
+        /* 按钮样式 */
+        .resume-download {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 18px;
+            height: 36px;
+            background: var(--primary);
+            color: #fff !important;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(22,93,255,0.3);
+            transition: var(--transition);
+            white-space: nowrap;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .resume-download:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(14,66,179,0.4);
+        }
+        .resume-download i {
+            margin-right: 8px;
+            font-size: 14px;
+        }
+        /* 通用标题 */
+        .section-title {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            color: var(--secondary);
+        }
+        .section-title::after {
+            content: "";
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+            box-shadow: 0 0 8px rgba(22,93,255,0.3);
+        }
+        /* 技术领域 */
+        .tech-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .tech-item {
+            background: var(--light);
+            padding: 30px 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+        .tech-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(22,93,255,0.1);
+            border-color: rgba(22, 93, 255, 0.2);
+        }
+        .tech-item i {
+            font-size: 32px;
+            color: var(--primary);
+            margin-bottom: 15px;
+            transition: var(--transition);
+        }
+        .tech-item:hover i {
+            color: var(--secondary);
+            transform: scale(1.1);
+        }
+        .tech-item h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--tertiary);
+        }
+        .tech-item p {
+            color: var(--gray);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        /* 项目实践 */
+        .project-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .project-item {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: var(--transition);
+            background: var(--light);
+        }
+        .project-item:hover {
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-color: rgba(22, 93, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        .project-item .project-header {
+            background: var(--bg-main);
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        .project-item .project-header h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+        .project-item .project-header .tech-stack {
+            font-size: 14px;
+            color: var(--tertiary);
+        }
+        .project-item .project-body {
+            padding: 20px;
+        }
+        .project-item .project-body ul {
+            list-style: none;
+        }
+        .project-item .project-body li {
+            font-size: 15px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+        .project-item:hover .project-body li {
+            color: var(--secondary);
+        }
+        .project-item .project-body li::before {
+            content: "✓";
+            color: var(--tertiary);
+            margin-right: 8px;
+            margin-top: 4px;
+            transition: var(--transition);
+        }
+        .project-item:hover .project-body li::before {
+            transform: scale(1.2);
+            color: var(--primary);
+        }
+        /* 技术理念 */
+        .idea-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--light);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        .idea-content:hover {
+            border-color: rgba(22, 93, 255, 0.2);
+            box-shadow: 0 5px 15px rgba(22,93,255,0.1);
+        }
+        .idea-content p {
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 1.8;
+            color: var(--dark);
+        }
+        /* 联系我 */
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 24px;
+            height: 40px;
+            background: var(--primary);
+            color: #fff;
+            border-radius: 6px;
+            font-size: 16px;
+            margin: 20px 10px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(22,93,255,0.3);
+        }
+        .contact-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(14,66,179,0.4);
+        }
+        .contact-btn i {
+            margin-right: 8px;
+        }
+        .other {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 10px;
+        }
+        /* 翻页指示器 */
+        .pagination {
+            position: fixed;
+            right: 50px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 99;
+            transition: var(--transition);
+        }
+        .nav:hover ~ .page-container .pagination {
+            right: 230px;
+        }
+        .pagination-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--gray);
+            margin: 15px 0;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+        .pagination-dot.active {
+            background: var(--primary);
+            transform: scale(1.2);
+            border-color: rgba(22, 93, 255, 0.5);
+            box-shadow: 0 0 8px rgba(22,93,255,0.6);
+        }
+        /* 翻页提示 */
+        .scroll-tip {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--primary);
+            font-size: 24px;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            z-index: 99;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+        /* 复制提示 */
+        .copy-toast {
+            position: fixed;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(22, 93, 255, 0.9);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 999;
+        }
+        .copy-toast.show {
+            opacity: 1;
+        }
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .nav {
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: auto;
+                width: 100%;
+                height: 80px;
+                flex-direction: row;
+                transform: translateX(0);
+                border-left: none;
+                border-bottom: 1px solid var(--border);
+            }
+            .nav::before {
+                display: none;
+            }
+            .nav .container {
+                flex-direction: row;
+                gap: 10px;
+            }
+            .nav .name {
+                margin-bottom: 0;
+                font-size: 18px;
+                opacity: 1;
+            }
+            .nav .tags {
+                flex-direction: row;
+                gap: 10px;
+                opacity: 1;
+            }
+            .nav .tags a {
+                font-size: 14px;
+                line-height: 32px;
+            }
+            .resume-download {
+                padding: 4px 12px;
+                height: 32px;
+                font-size: 14px;
+                margin-top: 0;
+            }
+            .page {
+                padding-top: 90px;
+            }
+            .tech-list {
+                grid-template-columns: 1fr 1fr;
+            }
+            .project-list {
+                grid-template-columns: 1fr;
+            }
+            .idea-content {
+                padding: 20px;
+            }
+            .pagination {
+                right: 15px !important;
+            }
+            .pagination-dot {
+                width: 8px;
+                height: 8px;
+                margin: 10px 0;
+            }
+        }
+        @media (max-width: 480px) {
+            .tech-list {
+                grid-template-columns: 1fr;
+            }
+            .nav .tags a:not(.resume-download) {
+                display: none;
+            }
+            .contact-item {
+                width: 36px;
+                height: 36px;
+            }
+            .page {
+                padding-top: 80px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="nav">
+        <div class="container">
+            <div class="name">张子墨</div>
+            <div class="tags">
+                <a href="#page1" class="page-link">首页</a>
+                <a href="#page2" class="page-link">技术领域</a>
+                <a href="#page3" class="page-link">项目实践</a>
+                <a href="#page4" class="page-link">技术理念</a>
+                <a href="#page5" class="page-link">联系我</a>
+                <a href="简历_AI大模型应用工程师.docx" download="简历_AI大模型应用工程师.docx" class="resume-download">
+                    <i class="fas fa-download"></i> 下载简历
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 翻页容器 -->
+    <div class="page-container">
+        <div class="pages" id="pages">
+            <!-- 首页 -->
+            <div class="page page-1" id="page1">
+                <div class="container">
+                    <div class="avatar">
+                        <img src="zzm.png" alt="张子墨个人照片" style="width: 120px; height: 120px; border-radius: 50%; border: 4px solid rgba(22, 93, 255, 0.1); box-shadow: 0 0 20px rgba(22, 93, 255, 0.15);">
+                    </div>
+                    <h1>张子墨</h1>
+                    <p class="title">AI大模型应用工程师 | 多模态开发 | 智能系统搭建</p>
+                    <p class="desc">
+                        专注AI大模型全栈应用开发，以计算机科学与技术专业为基础，深耕大模型落地全流程。
+                        擅长多模态大模型应用开发、智能Agent构建、大模型API集成与二次开发，通过工程化思维
+                        实现AI技术从原型到生产级应用的转化，专注解决企业级AI落地的实际问题。
+                    </p>
+                    <div class="contact">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="contact-text">18688997766</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span class="contact-text">zhangzimo_ai@163.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span class="contact-text">上海 / 北京</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-github"></i>
+                            <span class="contact-text"><a href="https://github.com/zhangzimo-ai" target="_blank" style="color: #333;">GitHub/zhangzimo-ai</a></span>
+                        </div>
+                    </div>
+                    <a href="简历_AI大模型应用工程师.docx" download="简历_AI大模型应用工程师.docx" class="resume-download">
+                        <i class="fas fa-file-word"></i> 下载我的简历
+                    </a>
+                </div>
+            </div>
+
+            <!-- 技术领域 -->
+            <div class="page page-2" id="page2">
+                <div class="container">
+                    <h2 class="section-title">核心技术领域</h2>
+                    <div class="tech-list">
+                        <div class="tech-item">
+                            <i class="fas fa-layer-group"></i>
+                            <h3>多模态应用开发</h3>
+                            <p>图文音视频多模态交互、跨模态检索、多模态大模型推理优化</p>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-user-robot"></i>
+                            <h3>智能Agent构建</h3>
+                            <p>工具调用、多智能体协作、任务规划与执行，实现自动化工作流</p>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-plug"></i>
+                            <h3>API集成开发</h3>
+                            <p>主流大模型API适配、接口封装、流量控制与异常处理</p>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-server"></i>
+                            <h3>部署优化</h3>
+                            <p>模型量化、推理加速、容器化部署、高并发服务搭建</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 项目实践 -->
+            <div class="page page-3" id="page3">
+                <div class="container">
+                    <h2 class="section-title">项目实践</h2>
+                    <div class="project-list">
+                        <div class="project-item">
+                            <div class="project-header">
+                                <h3>多模态智能客服系统</h3>
+                                <p class="tech-stack">技术栈：Python + FastAPI + 多模态大模型 + 知识库 + 语音识别</p>
+                            </div>
+                            <div class="project-body">
+                                <ul>
+                                    <li>构建多模态交互界面，支持文字、图片、语音多形式用户咨询</li>
+                                    <li>设计多轮对话管理机制，提升复杂问题解答能力与用户体验</li>
+                                    <li>集成企业知识库，实现图文结合的精准回答，解决85%以上常见咨询</li>
+                                    <li>优化推理性能，将响应时间控制在1.5秒内，支撑日均10万+咨询量</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-header">
+                                <h3>智能办公Agent系统</h3>
+                                <p class="tech-stack">技术栈：Python + LangGraph + 工具调用 + 企业API + 大模型</p>
+                            </div>
+                            <div class="project-body">
+                                <ul>
+                                    <li>开发智能办公助手，集成文档处理、数据分析、邮件发送等20+工具</li>
+                                    <li>设计任务分解与规划逻辑，实现复杂办公任务的自动化执行</li>
+                                    <li>搭建多智能体协作框架，不同Agent负责不同专业领域任务处理</li>
+                                    <li>实现权限控制与操作审计，保障企业数据安全与合规性</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-header">
+                                <h3>大模型应用私有化部署平台</h3>
+                                <p class="tech-stack">技术栈：Docker + Kubernetes + 模型量化 + FastAPI + 监控告警</p>
+                            </div>
+                            <div class="project-body">
+                                <ul>
+                                    <li>构建私有化部署方案，支持主流开源大模型的一键部署与管理</li>
+                                    <li>实现模型量化与推理加速，硬件成本降低40%，推理速度提升60%</li>
+                                    <li>开发模型管理平台，支持版本控制、性能监控、资源调度</li>
+                                    <li>设计高可用架构，支持7x24小时稳定运行，故障自动恢复</li>
+                                    <li>集成数据脱敏与访问控制，满足企业级数据安全要求</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 技术理念 -->
+            <div class="page page-4" id="page4">
+                <div class="container">
+                    <h2 class="section-title">我的技术理念</h2>
+                    <div class="idea-content">
+                        <p>AI技术的价值不在于技术本身，而在于解决实际问题——这是我始终坚持的开发理念。作为全栈AI应用开发者，我认为优秀的AI应用需要兼顾技术先进性与业务实用性，既要拥抱前沿技术，更要落地到具体场景。</p>
+                        <p>在大模型应用开发中，我注重「全链路思维」：从需求分析、技术选型、开发实现到部署运维，每个环节都要围绕业务目标展开。拒绝为了技术而技术，而是以解决问题为导向，用最简单有效的方案实现业务价值最大化。</p>
+                        <p>AI领域发展日新月异，保持开放的学习心态和快速的技术迭代能力至关重要。我始终以「解决问题的工程师」定位自己，持续学习前沿技术，同时沉淀落地经验，致力于打造稳定、高效、可扩展的企业级AI应用。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 联系我 -->
+            <div class="page page-5" id="page5">
+                <div class="container">
+                    <h2 class="section-title">联系我</h2>
+                    <p>如果你有AI大模型应用开发、私有化部署、智能系统搭建需求，欢迎随时联系</p>
+                    <button class="contact-btn" id="copyEmailBtn">
+                        <i class="fas fa-copy"></i> 复制邮箱地址
+                    </button>
+                    <a href="简历_AI大模型应用工程师.docx" download="简历_AI大模型应用工程师.docx" class="resume-download">
+                        <i class="fas fa-download"></i> 简历下载（AI大模型应用工程师）
+                    </a>
+                    <p class="other">也可通过GitHub/电话直接沟通，期待与你一起推动AI技术的实际落地</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 翻页指示器 -->
+        <div class="pagination" id="pagination">
+            <div class="pagination-dot active" data-page="0"></div>
+            <div class="pagination-dot" data-page="1"></div>
+            <div class="pagination-dot" data-page="2"></div>
+            <div class="pagination-dot" data-page="3"></div>
+            <div class="pagination-dot" data-page="4"></div>
+        </div>
+
+        <!-- 翻页提示 -->
+        <div class="scroll-tip" id="scrollTip">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        
+        <!-- 复制提示 -->
+        <div class="copy-toast" id="copyToast">邮箱地址已复制！</div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 翻页逻辑
+            const pagesContainer = document.getElementById('pages');
+            const paginationDots = document.querySelectorAll('.pagination-dot');
+            const scrollTip = document.getElementById('scrollTip');
+            const pageLinks = document.querySelectorAll('.page-link');
+            let currentPage = 0;
+            const totalPages = document.querySelectorAll('.page').length;
+
+            function goToPage(pageIndex) {
+                if (pageIndex < 0 || pageIndex >= totalPages) return;
+                currentPage = pageIndex;
+                pagesContainer.style.transform = `translateY(-${currentPage * 100}vh)`;
+                paginationDots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentPage);
+                });
+                scrollTip.style.display = currentPage === totalPages - 1 ? 'none' : 'block';
+            }
+
+            // 滚轮翻页
+            document.addEventListener('wheel', (e) => {
+                e.deltaY > 0 ? goToPage(currentPage + 1) : goToPage(currentPage - 1);
+            }, { passive: true });
+
+            // 键盘翻页
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowDown') goToPage(currentPage + 1);
+                else if (e.key === 'ArrowUp') goToPage(currentPage - 1);
+            });
+
+            // 指示器点击
+            paginationDots.forEach(dot => {
+                dot.addEventListener('click', () => goToPage(parseInt(dot.dataset.page)));
+            });
+
+            // 提示箭头点击
+            scrollTip.addEventListener('click', () => goToPage(currentPage + 1));
+
+            // 导航链接点击
+            pageLinks.forEach((link, index) => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    goToPage(index);
+                });
+            });
+
+            // 复制邮箱
+            const copyEmailBtn = document.getElementById('copyEmailBtn');
+            const copyToast = document.getElementById('copyToast');
+            const email = 'zhangzimo_ai@163.com';
+
+            copyEmailBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(email).then(() => {
+                    copyToast.classList.add('show');
+                    setTimeout(() => copyToast.classList.remove('show'), 3000);
+                }).catch(err => {
+                    alert('复制失败，请手动复制：' + email);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
